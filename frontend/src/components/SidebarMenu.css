@@ -1,0 +1,46 @@
+/* Sidebar Container */
+.sidebar {
+  height: 100vh;
+  width: 20rem;
+  background-color: #333;
+  color: white;
+  padding: 2rem;
+  display: inline-block;
+  vertical-align: top;
+  box-sizing: border-box;
+}
+
+/* Sidebar Menu Items */
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-item {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.menu-item:hover {
+  background-color: #444;
+}
+
+/* Submenu for Dropdown */
+.submenu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-left: 15px;
+}
+
+.submenu li {
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submenu li:hover {
+  background-color: #555;
+}
