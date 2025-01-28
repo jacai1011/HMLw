@@ -1,30 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import './SidebarMenu.css';
 import { getProjects } from '../services/api';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const SidebarMenu = () => {
   const [projects, setProjects] = useState([]);
   const [dropdowns, setDropdowns] = useState({});
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+  const location = useLocation(); // Get the current route
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const fetchedProjects = await getProjects();  // Fetch projects using the API
-        console.log(fetchedProjects)
-        setProjects(fetchedProjects);  // Set the projects to state
+        const fetchedProjects = await getProjects();
+        setProjects(fetchedProjects);
       } catch (error) {
         console.error('Error fetching projects:', error);
       }
     };
 
     fetchProjects();
-  }, []); 
+  }, []);
 
   const toggleDropdownAndNavigate = (key, path) => {
+    if (location.pathname === path) {
+      // Reload the page if already on the same path
+      window.location.reload();
+    } else {
+      navigate(path);
+    }
     setDropdowns((prev) => ({ ...prev, [key]: !prev[key] }));
-    navigate(path);
   };
 
   return (
@@ -32,12 +37,13 @@ const SidebarMenu = () => {
       <h2>Sidebar Menu</h2>
       <ul className="menu">
         <li>
-          <div className="menu-item">
-            Dashboard
-          </div>
+          <div className="menu-item">Dashboard</div>
         </li>
         <li>
-          <div onClick={() => toggleDropdownAndNavigate('projects', '/projects')} className="menu-item">
+          <div
+            onClick={() => toggleDropdownAndNavigate('projects', '/projects')}
+            className="menu-item"
+          >
             Projects
           </div>
           {dropdowns['projects'] && (
@@ -49,9 +55,7 @@ const SidebarMenu = () => {
           )}
         </li>
         <li>
-          <div className="menu-item">
-            Item 3
-          </div>
+          <div className="menu-item">Item 3</div>
         </li>
       </ul>
     </div>

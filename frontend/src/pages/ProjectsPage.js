@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getProjects } from '../services/api'; // Make sure the path is correct
+import ProjectDisplay from '../components/ProjectDisplay';
+import './ProjectsPage.css';
 
 const ProjectsPage = () => {
   const [projects, setProjects] = useState([]);
@@ -24,11 +26,12 @@ const ProjectsPage = () => {
   return (
     <div>
       <h2>Projects</h2>
-      <ul>
+
+      <div className="grid-container">
         {projects.map((project) => (
-          <li key={project.id}>{project.name}</li>
+          <ProjectDisplay key={project.id} projectId={project.id} />
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

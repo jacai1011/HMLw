@@ -1,0 +1,78 @@
+.box {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  width: 20rem;
+  height: 20rem;
+  margin: 2.5rem;
+  display: flex;
+  flex-direction: column;
+}
+  
+.box:hover {
+  transform: translateY(-5px);
+}
+  
+.box-title {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.containerTop {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+}
+
+.colorBox {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 3rem;
+  height: 3rem;
+}
+
+.projectName {
+  font-size: 20px;
+  font-weight: 600;
+  margin-left: 1rem;
+}
+
+.containerMiddle {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+  border: 1px solid #ddd;
+}
+
+.tasksDone {
+  margin-right: auto;
+}
+
+.progressBar {
+  background-color: wheat;
+  border-radius: 8px;
+  height: 12px;
+  margin-top: 8px;
+}
+
+.progress {
+  background-color: #4caf50;
+  height: 100%;
+  border-radius: 8px;
+  transition: width 0.3s ease;
+}
+
+.containerBottom {
+  display: flex;
+  margin-top: 2rem;
+  border: 1px solid #ddd;
+}
+
+.dueDate {
+  font-size: 16px;
+  font-weight: 600;
+}

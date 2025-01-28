@@ -21,3 +21,23 @@ export const createProject = async (project) => {
     throw error;
   }
 };
+
+export const getProject = async (projectId) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/getProject/${projectId}`, projectId);
+    return response.data
+  } catch (error) {
+    console.error("Error fetching project:", error);
+    throw error;
+  }
+}
+
+export const getProjectTasksCount = async (projectId) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/getProjectTasksCount/${projectId}`, projectId);
+    return response.data
+  } catch (error) {
+    console.error("Error fetching project tasks count:", error);
+    throw error;
+  }
+}

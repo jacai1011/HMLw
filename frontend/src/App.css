@@ -1,8 +1,12 @@
 .app-container {
-  display: flex;  /* Use flexbox to align sidebar and content horizontally */
+  display: flex;
+  background-color: rgb(247, 247, 244);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
+
 .content {
-  flex: 1;  /* Take up the remaining space on the right */
-  padding: 15px;
-  overflow-y: auto;  /* Enable scrolling if content overflows */
+  flex: 1;
+  padding: 2.5rem;
 }
