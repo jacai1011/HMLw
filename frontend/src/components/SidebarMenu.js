@@ -24,7 +24,6 @@ const SidebarMenu = () => {
 
   const toggleDropdownAndNavigate = (key, path) => {
     if (location.pathname === path) {
-      // Reload the page if already on the same path
       window.location.reload();
     } else {
       navigate(path);
