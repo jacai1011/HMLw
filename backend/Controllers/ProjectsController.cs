@@ -349,4 +349,58 @@ public class ProjectsController : ControllerBase
         }
     }
 
+    [HttpGet("getTimeLog/{projectId}/{date}")]
+    public async Task<ActionResult<IEnumerable<TimeLogDto>>> GetTimeLog(long projectId, DateOnly date)
+    {
+        var timeLog = await _context.TimeLogs
+            .FirstOrDefaultAsync(tl => tl.ProjectId == projectId && tl.Date == date);
+
+        if (timeLog is null) return NotFound();
+
+        var timeLogDto = new TimeLogDto
+        {
+            Id = timeLog.Id,
+            Date = timeLog.Date,
+            HoursSpent = timeLog.HoursSpent,
+        };
+
+        return Ok(timeLogDto);
+    }
+
+    [HttpPost("addTimeLog/{projectId}")]
+    public async Task<ActionResult<TimeLogDto>> AddTimeLog(long projectId, TimeLogDto timeLogDto)
+    {
+        var project = await _context.Projects.FindAsync(projectId);
+        if (project == null) return NotFound();
+
+        var timeLog = new TimeLog
+        {
+            Id = timeLogDto.Id,
+            Date = timeLogDto.Date,
+            HoursSpent = timeLogDto.HoursSpent,
+            ProjectId = projectId,
+        };
+        project.TimeLogs.Add(timeLog);
+        _context.TimeLogs.Add(timeLog);
+        await _context.SaveChangesAsync();
+
+        var createdTimeLogDto = new TimeLogDto(timeLog);
+
+        return CreatedAtAction(nameof(GetTimeLog), new { projectId = timeLog.Id, date = timeLog.Date }, createdTimeLogDto);
+    }
+
+    [HttpPut("updateTimeLog/{projectId}/{date}")]
+    public async Task<IActionResult> UpdateTimeLog(long projectId, DateOnly date, double hoursSpent)
+    {
+        var timeLog = await _context.TimeLogs
+            .FirstOrDefaultAsync(tl => tl.ProjectId == projectId && tl.Date == date);
+
+        if (timeLog is null) return NotFound();
+
+        timeLog.HoursSpent = hoursSpent;
+
+        await _context.SaveChangesAsync();
+
+        return NoContent();
+    }
 }

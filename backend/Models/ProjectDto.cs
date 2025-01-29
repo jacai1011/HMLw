@@ -7,6 +7,7 @@ public class ProjectDto
     public DateOnly DueDate { get; set; }
     public string Color { get; set; } = "#FFFFFF";
     public List<TaskListDto> TaskLists { get; set; } = [];
+    public List<TimeLogDto> TimeLogs { get; set; } = [];
     public ProjectDto() { }
     public ProjectDto(Project project)
     {
@@ -16,5 +17,6 @@ public class ProjectDto
         Color = project.Color;
 
         TaskLists.AddRange(project.TaskLists.Select(tl => new TaskListDto(tl)).ToList());
+        TimeLogs.AddRange(project.TimeLogs.Select(ti => new TimeLogDto(ti)).ToList());
     }
 }

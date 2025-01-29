@@ -7,7 +7,7 @@ public class ProjectContext : DbContext
     public required DbSet<Project> Projects { get; set; }
     public required DbSet<TaskList> TaskLists { get; set; }
     public required DbSet<Task> Tasks { get; set; }
-
+    public required DbSet<TimeLog> TimeLogs { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Project -> TaskList relationship
@@ -22,6 +22,13 @@ public class ProjectContext : DbContext
             .HasMany(tl => tl.Tasks)
             .WithOne(t => t.TaskList)
             .HasForeignKey(t => t.TaskListId)
+            .OnDelete(DeleteBehavior.Cascade);
+            
+        // Project -> TimeLog relationship
+        modelBuilder.Entity<Project>()
+            .HasMany(p => p.TimeLogs)
+            .WithOne(tl => tl.Project)
+            .HasForeignKey(tl => tl.ProjectId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

@@ -6,4 +6,5 @@ public class Project
     public DateOnly DueDate { get; set; }
     public string Color { get; set; } = "#FFFFFF";
     public ICollection<TaskList> TaskLists { get; } = [];
+    public ICollection<TimeLog> TimeLogs { get; } = [];
 }
