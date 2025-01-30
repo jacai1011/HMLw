@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getProjects } from '../services/api'; // Make sure the path is correct
 import ProjectDisplay from '../components/ProjectDisplay';
 import './ProjectsPage.css';
+import AddProject from '../components/AddProject';
 
 const ProjectsPage = () => {
   const [projects, setProjects] = useState([]);
@@ -26,7 +27,7 @@ const ProjectsPage = () => {
   return (
     <div>
       <h2>Projects</h2>
-
+      <AddProject/>
       <div className="grid-container">
         {projects.map((project) => (
           <ProjectDisplay key={project.id} projectId={project.id} />

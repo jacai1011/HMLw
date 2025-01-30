@@ -177,12 +177,14 @@ const ProjectDisplay = ({ projectId }) => {
         <Line data={chartData} options={chartOptions} height={150} />
       </div>
       <div className="containerBottom">
-        <div className="dueDate">
-          DUE DATE: {new Date(project.dueDate).toLocaleDateString('en-AU', {
-            day: '2-digit',   // Day (e.g., '01')
-            month: 'short',   // Abbreviated month (e.g., 'Jan')
-            year: 'numeric',  // Full year (e.g., '2025')
-          })}
+        <div className="dueDateWrap">
+          <div className="dueDate">
+            DUE DATE: {new Date(project.dueDate).toLocaleDateString('en-AU', {
+              day: '2-digit',   // Day (e.g., '01')
+              month: 'short',   // Abbreviated month (e.g., 'Jan')
+              year: 'numeric',  // Full year (e.g., '2025')
+            })}
+          </div>
         </div>
       </div>
     </div>

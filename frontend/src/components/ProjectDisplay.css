@@ -25,11 +25,9 @@
 .containerTop {
   display: flex;
   align-items: center;
-  border: 1px solid #ddd;
 }
 
 .colorBox {
-  border: 1px solid #ddd;
   border-radius: 8px;
   width: 3rem;
   height: 3rem;
@@ -37,7 +35,7 @@
 
 .projectName {
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 700;
   margin-left: 1rem;
 }
 
@@ -65,7 +63,6 @@
   display: flex;
   flex-direction: column;
   margin-top: 1rem;
-  border: 1px solid #ddd;
 }
 
 .tasksDone {
@@ -88,18 +85,28 @@
 
 .containerMiddleTwo {
   display: flex;
-  border: 1px solid #ddd;
   margin-top: 1rem;
 }
 
 .containerBottom {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 1rem;
-  border: 1px solid #ddd;
+  margin-top: 0.5rem;
+}
+
+.dueDateWrap {
+  background-color: #FFF2EC;
+  color: white;
+  border: none;
+  padding: 10px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: auto;
 }
 
 .dueDate {
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 650;
+  color: #FD7B38;
 }
