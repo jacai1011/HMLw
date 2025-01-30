@@ -56,6 +56,11 @@
   background-color: #218838;
 }
 
+.toggleButton.active {
+  background-color: #CC0022; /* Green color when active */
+  transform: scale(1.05); /* Slightly larger button when active */
+}
+
 .containerMiddle {
   display: flex;
   flex-direction: column;
@@ -89,6 +94,7 @@
 
 .containerBottom {
   display: flex;
+  flex-wrap: wrap;
   margin-top: 1rem;
   border: 1px solid #ddd;
 }

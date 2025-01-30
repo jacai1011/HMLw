@@ -397,7 +397,12 @@ public class ProjectsController : ControllerBase
 
         if (timeLog is null) return NotFound();
 
-        timeLog.HoursSpent = hoursSpent;
+        if (hoursSpent < 0)
+        {
+            return BadRequest("Hours spent cannot be negative.");
+        }
+
+        timeLog.HoursSpent += hoursSpent;
 
         await _context.SaveChangesAsync();
 

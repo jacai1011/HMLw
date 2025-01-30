@@ -34,7 +34,7 @@ export const getProject = async (projectId) => {
 
 export const getProjectTasksCount = async (projectId) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/getProjectTasksCount/${projectId}`, projectId);
+    const response = await axios.get(`${API_BASE_URL}/getProjectTasksCount/${projectId}`);
     return response.data
   } catch (error) {
     console.error("Error fetching project tasks count:", error);
@@ -44,17 +44,17 @@ export const getProjectTasksCount = async (projectId) => {
 
 export const getTimeLog = async (projectId, date) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/getTimeLog/${projectId}/${date}`, projectId, date);
-    return response.data
+    const response = await axios.get(`${API_BASE_URL}/getTimeLog/${projectId}/${date}`);
+    return response.data;
   } catch (error) {
     console.error("Error fetching timeLog:", error);
     throw error;
   }
-}
+};
 
 export const updateTimeLog = async (projectId, date, hoursSpent) => {
   try {
-    const response = await axios.put(`${API_BASE_URL}/updateTimeLog/${projectId}/${date}/${hoursSpent}`, projectId, date, hoursSpent);
+    const response = await axios.put(`${API_BASE_URL}/updateTimeLog/${projectId}/${date}`, hoursSpent);
     return response.data;
   } catch (error) {
     console.error("Error updating timeLog:", error);
@@ -62,12 +62,27 @@ export const updateTimeLog = async (projectId, date, hoursSpent) => {
   }
 }
 
-export const addTimeLog = async (projectId) => {
+export const addTimeLog = async (projectId, date, hoursSpent) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/addTimeLog/${projectId}`, projectId);
+    const timeLogData = {
+      date: date,
+      hoursSpent: hoursSpent,
+    };
+
+    const response = await axios.post(
+      `${API_BASE_URL}/addTimeLog/${projectId}`,
+      timeLogData,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
     return response.data;
   } catch (error) {
     console.error("Error creating timeLog:", error);
     throw error;
   }
 };
+
