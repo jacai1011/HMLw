@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getProject, getProjectTasksCount, getTimeLog, addTimeLog, updateTimeLog } from '../services/api';
+import { useNavigate } from "react-router-dom";
 import { Line } from 'react-chartjs-2';
 import './ProjectDisplay.css';
 import 'chart.js/auto';
@@ -11,8 +12,9 @@ const ProjectDisplay = ({ projectId }) => {
   const [timeLogs, setTimeLogs] = useState([]);
   const [error, setError] = useState(null);
   const [isActive, setIsActive] = useState(false);
-  const [elapsedTime, setElapsedTime] = useState(0); // To track the time elapsed in seconds
-  const [timerId, setTimerId] = useState(null); // To store the timer interval ID
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [timerId, setTimerId] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -156,7 +158,7 @@ const ProjectDisplay = ({ projectId }) => {
   };
 
   return (
-    <div className="box">
+    <div className="box" onClick={() => navigate(`/project/${projectId}`)}>
       <div className="containerTop">
         <div className="colorBox" style={{ backgroundColor: project.color }}></div>
         <div className="projectName">{project.name}</div>

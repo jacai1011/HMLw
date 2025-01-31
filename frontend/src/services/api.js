@@ -40,8 +40,8 @@ export const createProject = async (project) => {
 
 export const getProject = async (projectId) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/getProject/${projectId}`, projectId);
-    return response.data
+    const response = await axios.get(`${API_BASE_URL}/getProject/${projectId}`);
+    return response.data;
   } catch (error) {
     console.error("Error fetching project:", error);
     throw error;

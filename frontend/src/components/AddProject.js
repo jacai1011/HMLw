@@ -53,8 +53,8 @@ const AddProject = () => {
               />
 
               <div className="buttonGroup">
-                <button type="submit" className="submitButton">Submit</button>
                 <button type="button" onClick={() => setIsOpen(false)} className="closeButton">Close</button>
+                <button type="submit" className="submitButton">Submit</button>
               </div>
             </form>
           </div>
