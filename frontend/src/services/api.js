@@ -14,13 +14,29 @@ export const getProjects = async () => {
 
 export const createProject = async (project) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/createProject`, project);
-    return response.data;
+    const projectData = {
+      name: project.name,  // Access properties from project
+      dueDate: project.dueDate,
+      color: project.color,
+    };
+
+    const response = await axios.post(
+      `${API_BASE_URL}/createProject`,
+      projectData,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    return response.data; // Return response if needed
   } catch (error) {
     console.error("Error creating project:", error);
     throw error;
   }
 };
+
 
 export const getProject = async (projectId) => {
   try {

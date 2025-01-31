@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getProjects } from '../services/api'; // Make sure the path is correct
+import { getProjects } from '../services/api';
 import ProjectDisplay from '../components/ProjectDisplay';
 import './ProjectsPage.css';
 import AddProject from '../components/AddProject';
