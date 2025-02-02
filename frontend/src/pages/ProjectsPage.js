@@ -11,7 +11,7 @@ const ProjectsPage = () => {
     const fetchProjects = async () => {
       try {
         const data = await getProjects();
-        setProjects(data); // Set the fetched projects to state
+        setProjects(data);
       } catch (error) {
         console.error('Error fetching projects:', error);
       }

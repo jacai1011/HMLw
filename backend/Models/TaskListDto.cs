@@ -5,7 +5,7 @@ public class TaskListDto
     public string Name { get; set; } = string.Empty;
     public int Order { get; set; }
     public DateOnly DueDate { get; set; }
-    public List<TaskDto> Tasks { get; set; } = [];
+    public List<TaskDto> Tasks { get; set; } = new List<TaskDto>();
     public TaskListDto() { }
     public TaskListDto(TaskList taskList)
         : this()

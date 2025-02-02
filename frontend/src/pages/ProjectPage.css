@@ -1,0 +1,16 @@
+.taskTitleContainer {
+  display: flex;
+  border: 1px solid green;
+  align-items: center;
+}
+
+.tasksTitle {
+  margin-right: 5rem;
+  font-size: 20px;
+}
+
+.taskListContainer {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid red;
+}

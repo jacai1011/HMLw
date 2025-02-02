@@ -1,35 +1,36 @@
 import React, { useState } from "react";
-import { createProject } from '../services/api';
+import { addTaskList } from '../services/api';
 import './AddProject.css';
 
-const AddProject = () => {
+const AddTaskList = ({ projectId }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     dueDate: "",
-    color: "#000000", // Default color
+    order: 1,
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Submitting task list for projectId:", projectId);
     
     try {
-      await createProject(formData);  // Call API function
+      await addTaskList(formData, projectId);
       setIsOpen(false);
       window.location.reload();
     } catch (error) {
-      console.error("Failed to create project:", error);
+      console.error("Failed to create task list:", error);
     }
   };
 
   return (
     <div className="addProjectContainer">
-      <button onClick={() => setIsOpen(true)} className="plusButton">+ Add Project</button>
+      <button onClick={() => setIsOpen(true)} className="plusButton">+ Add Task List</button>
 
       {isOpen && (
         <div className="overlay">
           <div className="modal">
-            <h2>Add Project</h2>
+            <h2>Add Task List</h2>
             <form onSubmit={handleSubmit}>
               <input
                 type="text"
@@ -37,6 +38,7 @@ const AddProject = () => {
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 className="input"
+                required
               />
 
               <input
@@ -44,13 +46,6 @@ const AddProject = () => {
                 value={formData.dueDate}
                 onChange={(e) => setFormData({ ...formData, dueDate: e.target.value })}
                 className="input"
-              />
-
-              <input
-                type="color"
-                value={formData.color}
-                onChange={(e) => setFormData({ ...formData, color: e.target.value })}
-                className="colorPicker"
               />
 
               <div className="buttonGroup">
@@ -65,4 +60,4 @@ const AddProject = () => {
   );
 };
 
-export default AddProject;
+export default AddTaskList;

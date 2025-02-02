@@ -102,3 +102,77 @@ export const addTimeLog = async (projectId, date, hoursSpent) => {
   }
 };
 
+export const addTaskList = async (taskList, projectId) => {
+  try {
+    const taskListData = {
+      name: taskList.name,
+      dueDate: taskList.dueDate,
+      order: taskList.order,
+    };
+
+    const response = await axios.post(
+      `${API_BASE_URL}/addTaskList/${projectId}`,
+      taskListData,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Error creating taskList:", error);
+    throw error;
+  }
+}; 
+
+export const getTaskList = async (taskListId) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/getTaskList/${taskListId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching task list:", error);
+    throw error;
+  }
+};
+
+export const addTask = async (taskListId, task) => {
+  try {
+    const taskData = {
+      title: task.title,
+      isComplete: task.isComplete,
+      taskListId: taskListId,
+    };
+
+    const response = await axios.post(
+      `${API_BASE_URL}/addTask/${taskListId}`,
+      taskData,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Error creating task:", error);
+    throw error;
+  }
+};
+
+export const deleteProject = async (projectId) => {
+  try {
+    const response = await axios.delete(`${API_BASE_URL}/deleteProject/${projectId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting project:", error);
+    throw error;
+  }
+};
