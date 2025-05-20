@@ -408,4 +408,20 @@ public class ProjectsController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpPut("renameTaskList/{taskListId}")]
+    public async Task<IActionResult> RenameTaskList(long taskListId, [FromQuery] string name)
+    {
+        var taskList = await _context.TaskLists.FindAsync(taskListId);
+        if (taskList == null)
+        {
+            return NotFound();
+        }
+
+        taskList.Name = name;
+        await _context.SaveChangesAsync();
+
+        return NoContent();
+    }
+
 }

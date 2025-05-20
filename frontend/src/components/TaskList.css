@@ -1,32 +1,36 @@
 .task-list{
-    display: flex;
-    border: 1px solid grey;
-    flex-direction: column;
-    margin-top: 1rem;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  width: 100%;
 }
 
 .taskListContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.collapseToggle {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .taskListDate {
-    font-weight: 500;
-    font-size: 14px;
-    margin-right: 1rem;
+  font-weight: 500;
+  font-size: 14px;
+  margin-right: 1rem;
 }
 
 .taskListName {
-    margin-right: 1rem;
-    font-size: 18px;
-}
-
-.taskListButton {
-
+  margin-right: 1rem;
+  font-size: 18px;
 }
 
 .tasksContainer {
-    border: 1px solid grey;
+  border: 1px solid grey;
 }

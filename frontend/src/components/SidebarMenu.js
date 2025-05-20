@@ -22,13 +22,12 @@ const SidebarMenu = () => {
     fetchProjects();
   }, []);
 
-  const toggleDropdownAndNavigate = (key, path) => {
+  const toggleNavigate = ( path ) => {
     if (location.pathname === path) {
       window.location.reload();
     } else {
       navigate(path);
     }
-    setDropdowns((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
   return (
@@ -40,18 +39,12 @@ const SidebarMenu = () => {
         </li>
         <li>
           <div
-            onClick={() => toggleDropdownAndNavigate('projects', '/projects')}
+            onClick={() => toggleNavigate('/projects')}
             className="menu-item"
           >
             Projects
           </div>
-          {dropdowns['projects'] && (
-            <ul className="submenu">
-              {projects.map((project) => (
-                <li key={project.id}>{project.name}</li>
-              ))}
-            </ul>
-          )}
+      
         </li>
         <li>
           <div className="menu-item">Item 3</div>

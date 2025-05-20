@@ -1,4 +1,3 @@
-/* Sidebar Container */
 .sidebar {
   width: 20rem;
   background-color: #333;
@@ -9,7 +8,6 @@
   box-sizing: border-box;
 }
 
-/* Sidebar Menu Items */
 .menu {
   list-style: none;
   padding: 0;
@@ -26,7 +24,6 @@
   background-color: #444;
 }
 
-/* Submenu for Dropdown */
 .submenu {
   list-style: none;
   padding: 0;

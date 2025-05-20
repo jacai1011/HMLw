@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { addTask } from '../services/api';
 import './AddTask.css';
+import { Plus, X } from 'lucide-react';
 
 const AddTaskList = ({ taskListId }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,26 +25,35 @@ const AddTaskList = ({ taskListId }) => {
 
   return (
     <div className="addProjectContainer">
-      <button onClick={() => setIsOpen(true)} className="plusButton1">+</button>
+      <button onClick={() => setIsOpen(true)} className="plusButton1">
+        <Plus size={16} />
+      </button>
 
       {isOpen && (
         <div className="overlay1">
           <div className="modal1">
-            <h2>Add Task</h2>
+
+            <button className="closeButton1" onClick={() => setIsOpen(false)}>
+              <X size={16} />
+            </button>
+
+
+            <div className="addTask">New Task</div>
             <form onSubmit={handleSubmit}>
               <input
                 type="text"
-                placeholder="Enter title..."
+                placeholder="Task..."
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                 className="input1"
                 required
               />
 
-              <div className="buttonGroup1">
-                <button type="button" onClick={() => setIsOpen(false)} className="closeButton1">Close</button>
-                <button type="submit" className="submitButton1">Submit</button>
-              </div>
+
+              <button type="submit" className="submitButton1"> 
+                Add Task
+              </button>
+
             </form>
           </div>
         </div>

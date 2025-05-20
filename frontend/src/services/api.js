@@ -46,7 +46,7 @@ export const getProject = async (projectId) => {
     console.error("Error fetching project:", error);
     throw error;
   }
-}
+};
 
 export const getProjectTasksCount = async (projectId) => {
   try {
@@ -56,7 +56,7 @@ export const getProjectTasksCount = async (projectId) => {
     console.error("Error fetching project tasks count:", error);
     throw error;
   }
-}
+};
 
 export const getTimeLog = async (projectId, date) => {
   try {
@@ -70,13 +70,15 @@ export const getTimeLog = async (projectId, date) => {
 
 export const updateTimeLog = async (projectId, date, hoursSpent) => {
   try {
-    const response = await axios.put(`${API_BASE_URL}/updateTimeLog/${projectId}/${date}`, hoursSpent);
+    const response = await axios.put(
+      `${API_BASE_URL}/updateTimeLog/${projectId}/${date}?hoursSpent=${hoursSpent}`
+    );
     return response.data;
   } catch (error) {
     console.error("Error updating timeLog:", error);
     throw error;
   }
-}
+};
 
 export const addTimeLog = async (projectId, date, hoursSpent) => {
   try {
@@ -173,6 +175,33 @@ export const deleteProject = async (projectId) => {
     return response.data;
   } catch (error) {
     console.error("Error deleting project:", error);
+    throw error;
+  }
+};
+
+export const renameTaskList = async (taskListId, newName) => {
+  try {
+    const response = await axios.put(
+      `${API_BASE_URL}/renameTaskList/${taskListId}?name=${newName}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error updating TaskList:", error);
+    throw error;
+  }
+};
+
+export const deleteTaskList = async (taskListId) => {
+  try {
+    const response = await axios.delete(`${API_BASE_URL}/deleteTaskList/${taskListId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting TaskList:", error);
     throw error;
   }
 };

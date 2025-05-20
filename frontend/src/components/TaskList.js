@@ -2,9 +2,13 @@ import React, { useState, useEffect } from "react";
 import { getTaskList } from "../services/api"; // Updated API call
 import "./TaskList.css"; // For styling
 import AddTask from '../components/AddTask';
+import EditTaskList from "./EditTaskList";
+import { ChevronDown, ChevronRight } from 'lucide-react';
+
 
 const TaskList = ({ taskListId }) => {
   const [taskList, setTaskList] = useState(null);
+  const [collapsed, setCollapsed] = useState(false);
 
   useEffect(() => {
     const fetchTaskList = async () => {
@@ -32,19 +36,30 @@ const TaskList = ({ taskListId }) => {
   return (
     <div className="task-list">
       <div className="taskListContainer">
+        <button
+          className="collapseToggle"
+          onClick={() => setCollapsed(!collapsed)}
+          aria-label="Toggle Task Visibility"
+        >
+          {collapsed ? <ChevronRight size={18} /> : <ChevronDown size={18} />}
+        </button>
         <div className="taskListName">{taskList.name}</div>
         <div className="taskListDate"> Due {formatDate(taskList.dueDate)}</div>
+        <EditTaskList key={taskListId} taskListId={taskListId} />
         <AddTask key={taskListId} taskListId={taskListId} />
       </div>
-      <div className="tasksContainer">
-        <ul>
+
+      {!collapsed && (
+        <div className="tasksContainer">
+          <ul>
             {taskList.tasks.map((task) => (
-            <li key={task.id} className={task.isComplete ? "completed" : ""}>
+              <li key={task.id} className={task.isComplete ? "completed" : ""}>
                 {task.title}
-            </li>
+              </li>
             ))}
-        </ul>
-      </div>
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

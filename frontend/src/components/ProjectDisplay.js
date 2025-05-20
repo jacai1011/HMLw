@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { getProject, getProjectTasksCount, getTimeLog, addTimeLog, updateTimeLog } from '../services/api';
+import React, { useState, useRef, useEffect } from 'react';
+import { getProject, getProjectTasksCount, getTimeLog, addTimeLog } from '../services/api';
 import { useNavigate } from "react-router-dom";
 import { Line } from 'react-chartjs-2';
 import './ProjectDisplay.css';
 import 'chart.js/auto';
 import 'chartjs-adapter-date-fns';
+import { deleteProject } from '../services/api';
+import { Trash, Pencil, Calendar } from 'lucide-react';
 
 const ProjectDisplay = ({ projectId }) => {
   const [project, setProject] = useState(null);
   const [tasksCount, setTasksCount] = useState({ completedTasks: 0, totalTasks: 0 });
   const [timeLogs, setTimeLogs] = useState([]);
   const [error, setError] = useState(null);
-  const [isActive, setIsActive] = useState(false);
-  const [elapsedTime, setElapsedTime] = useState(0);
-  const [timerId, setTimerId] = useState(null);
+  const [open, setOpen] = useState(false);
+  const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -64,40 +65,24 @@ const ProjectDisplay = ({ projectId }) => {
         console.error('Error fetching or adding time logs:', error);
       }
     };
+    
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
 
+    document.addEventListener('click', handleClickOutside);
+
+    handleClickOutside();
     fetchProject();
     fetchTasksCount();
     fetchTimeLogs();
-  }, [projectId]);
-
-  useEffect(() => {
-    // Clean up timer on component unmount or when the timer is stopped
-    return () => {
-      if (timerId) clearInterval(timerId);
-    };
-  }, [timerId]);
-
-  const handleToggle = async () => {
-    if (isActive) {
-      // Stop the timer
-      clearInterval(timerId);
-      setTimerId(null);
       
-      // Update time log for the project
-      const today = new Date().toISOString().split('T')[0]; // Get today's date in yyyy-mm-dd format
-      console.log(elapsedTime/3600)
-      await updateTimeLog(projectId, today, Math.round((elapsedTime/3600) * 10) / 10); // Convert seconds to hours
-      setElapsedTime(0); // Reset elapsed time
-    } else {
-      // Start the timer
-      const id = setInterval(() => {
-        setElapsedTime((prev) => prev + 1); // Increment time every second
-      }, 1000);
-      setTimerId(id);
-    }
-
-    setIsActive((prev) => !prev); // Toggle state
-  };
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [projectId]);
 
   if (error) {
     return <div className="box">Error: {error}</div>;
@@ -158,16 +143,60 @@ const ProjectDisplay = ({ projectId }) => {
   };
 
   return (
-    <div className="box" onClick={() => navigate(`/project/${projectId}`)}>
+    <div
+      className="box"
+      onClick={() => {
+        if (open) {
+          setOpen(false);
+        } else {
+          navigate(`/project/${projectId}`);
+        }
+      }}
+    >
       <div className="containerTop">
         <div className="colorBox" style={{ backgroundColor: project.color }}></div>
         <div className="projectName">{project.name}</div>
-        <button
-          className={`toggleButton ${isActive ? "active" : ""}`}
-          onClick={handleToggle}
-        >
-          {isActive ? "Stop" : "Start"}
-        </button>
+        <div ref={dropdownRef} className="dropdownWrapper" >
+          <button
+            className="optionsDropdown"
+            onClick={(e) => {
+              e.stopPropagation();
+              setOpen((prev) => !prev);
+            }}
+          />
+          {open && (
+            <div className="dropdownMenu" onClick={(e) => e.stopPropagation()}>
+              <button className="dropdownOption">
+                Rename
+                <Pencil className="optionIcon" size={16} />
+              </button>
+              <button className="dropdownOption">
+                Due Date
+                <Calendar className="optionIcon" size={16} />
+              </button>
+              <button
+                className="dropdownOption"
+                onClick={async (e) => {
+                  e.stopPropagation();
+                  try {
+                    if (window.confirm('Are you sure you want to delete this project?')) {
+                      await deleteProject(projectId);
+                      setOpen(false);
+                      window.location.reload();
+                    }
+                  } catch (err) {
+                    console.error('Error deleting project:', err);
+                  }
+                }}
+              >
+                Delete
+                <Trash className="optionIcon" size={16} />
+              </button>
+
+            </div>
+          )}
+        </div>
+
       </div>
       <div className="containerMiddle">
         <div className="tasksDone">Tasks Done: {tasksCount.completedTasks}/{tasksCount.totalTasks}</div>
@@ -182,9 +211,9 @@ const ProjectDisplay = ({ projectId }) => {
         <div className="dueDateWrap">
           <div className="dueDate">
             DUE DATE: {new Date(project.dueDate).toLocaleDateString('en-AU', {
-              day: '2-digit',   // Day (e.g., '01')
-              month: 'short',   // Abbreviated month (e.g., 'Jan')
-              year: 'numeric',  // Full year (e.g., '2025')
+              day: '2-digit',
+              month: 'short',
+              year: 'numeric',
             })}
           </div>
         </div>

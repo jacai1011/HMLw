@@ -1,7 +1,169 @@
+.project-container {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 2.5rem);
+  box-sizing: content-box;
+  padding: 2.5rem;
+  padding-bottom: 0;
+}
+
+.titleContainer {
+  display: flex;
+  margin-bottom: 1rem;
+  align-items: center;
+
+}
+
+.projectTitle {
+  margin-right: 2rem;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.ppDropdownWrapper {
+  position: relative;
+}
+
+.projectButton {
+  margin-top: 0.25rem;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  padding: 0.5rem;
+  background: transparent;
+  border-radius: 0.25rem;
+}
+
+.projectButton:hover {
+  background-color: #f0f0f0;
+}
+
+.ppOptionsDropdown {
+  width: 1.5rem;
+  height: 1rem;
+  background: transparent;
+  background-image: radial-gradient(circle, rgb(87, 87, 87) 0.1rem, transparent 0.15rem);
+  background-size: 33.33% 100%;
+  cursor: pointer;
+  border: none;
+}
+
+.ppDropdownMenu {
+  position: absolute;
+  top: 7rem;
+  transform: translateY(-100%);
+  background: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  width: 7rem;
+  text-align: left;
+}
+
+.dropdownOption {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 4px;
+  transition: background 0.2s;
+  font-size: 14px;
+  color: rgb(70, 70, 70);
+  font-weight: 550;
+}
+
+.dropdownOption:hover {
+  background-color: #f0f0f0;
+}
+
+.optionIcon {
+  float: right;
+  margin-bottom: -0.1rem;
+}
+
+.toggleButton {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 5rem;
+}
+
+.toggleButton:hover {
+  background-color: #218838;
+}
+
+.toggleButton.active {
+  background-color: #CC0022; /* Green color when active */
+  transform: scale(1.05); /* Slightly larger button when active */
+}
+
+.taskListsPageContainer {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+
+  box-sizing: border-box;
+}
+
+.taskListsAppendix {
+  margin-top: 1.5rem;
+  margin-right: 1rem;
+  min-width: 20rem;
+}
+
+.appendixSliderContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 1.5rem;
+  margin-top: 0.9rem;
+  
+}
+
+.appendixButton {
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  padding: 0;
+  height: 1.5rem;
+  width: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+	cursor: pointer;
+  background-color: rgb(247, 247, 244);
+  font-weight: 700;
+  position: absolute;
+
+}
+
+.appendixButton:hover {
+  background-color: #f0f0f0;
+}
+
+.vertical-line {
+  width: 1px;
+  height: 100%;
+  background-color: #ccc;
+  
+}
+
+.taskLists {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 2.5rem;
+}
+
 .taskTitleContainer {
   display: flex;
-  border: 1px solid green;
   align-items: center;
+  margin-top: 0.5rem;
 }
 
 .tasksTitle {
@@ -9,8 +171,6 @@
   font-size: 20px;
 }
 
-.taskListContainer {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid red;
+.taskListsContainer {
+
 }

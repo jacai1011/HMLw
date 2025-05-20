@@ -20,12 +20,9 @@ const ProjectsPage = () => {
     fetchProjects();
   }, []);
 
-  if (!projects || projects.length === 0) {
-    return <div>No projects available.</div>;
-  }
 
   return (
-    <div>
+    <div className="projectsPageContainer">
       <h2>Projects</h2>
       <AddProject/>
       <div className="grid-container">
